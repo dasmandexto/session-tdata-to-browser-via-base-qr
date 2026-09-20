@@ -1,0 +1,34 @@
+# ============================================================
+#  Зависимости для tg_qr_bridge (проброс .session / tdata -> Telegram Web)
+#  Python >= 3.11 (рекомендуется 3.12)
+#  Установка:
+#      pip install -r requirements.txt
+#      python -m playwright install chromium      # ОБЯЗАТЕЛЬНО, браузер не ставится с пакетом
+# ============================================================
+
+# --- Telegram / MTProto -------------------------------------
+telethon==1.45.0        # TelegramClient, functions.auth.AcceptLoginTokenRequest
+opentele==1.15.1        # TDesktop + ToTelethon: конвертация tdata -> .session
+
+# --- Декодирование QR-кода ----------------------------------
+# cv2.QRCodeDetector().detectAndDecode() + cv2.imread()
+opencv-python==5.0.0.93
+
+# На Linux без графической оболочки (сервер, Docker, CI) вместо
+# opencv-python ставьте headless-сборку — она без GUI-зависимостей (libGL и т.п.):
+# opencv-python-headless==5.0.0.93
+
+# --- Автоматизация браузера ---------------------------------
+# async_playwright().chromium.launch_persistent_context() — persistent-профиль
+playwright==1.63.0
+
+# --- Опционально: ускорение криптографии Telethon -----------
+# Без этого Telethon работает на чистом Python и печатает предупреждение
+# о низкой производительности (на больших объёмах аккаунтов — ощутимо).
+cryptg==0.6.0           # нужен Python >= 3.11
+# либо, для Python 3.7-3.10:
+# tgcrypto==1.2.5
+
+# --- Опциональные, для отладки/наглядности ------------------
+# pillow==12.0.0        # превью QR-скриншотов
+# python-dotenv==1.1.1  # если вынести API_ID / API_HASH в .env
