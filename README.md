@@ -9,7 +9,7 @@ pip install telethon playwright opencv-python pillow opentele
 playwright install chromium
 
 python3 -m venv venv
-source venv/nin/activate
+source venv/bin/activate
 ```
 
 ## Usage
